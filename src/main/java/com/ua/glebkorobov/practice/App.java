@@ -2,6 +2,7 @@ package com.ua.glebkorobov.practice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.ua.glebkorobov.practice.exceptions.WrongFormatFile;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -18,7 +19,9 @@ public class App {
     private static final String FILE_NAME_PROPERTIES = "/myProp.properties";
     private static final String FILE_SETTINGS_PROPERTIES = "/settings.properties";
 
-    public static void main(String[] args) {
+    private static final String FILE_FORMAT = "format";
+
+    public static void main(String[] args) throws WrongFormatFile {
 
         Properties properties = new Properties();
         try {
@@ -33,46 +36,40 @@ public class App {
         UserBean userBean = new UserBean("Привіт " + properties.getProperty("username") + "!");
         logger.info("User message created");
 
-
-        try {
-            InputStream is = App.class.getResourceAsStream(FILE_SETTINGS_PROPERTIES);
-            properties.load(is);
-            logger.info("Getting settings properties");
-        } catch (IOException e) {
-            logger.error("Settings properties hasn't found");
-            throw new RuntimeException(e);
-        }
-
-        if (properties.getProperty("file").toLowerCase(Locale.ROOT).equals("json")) {
-            createJsonFile(userBean);
-        }else if (properties.getProperty("file").toLowerCase(Locale.ROOT).equals("xml")) {
-            createXmlFile(userBean);
-        }
+        createFile(userBean);
     }
 
-    private static void createJsonFile(UserBean userBean) {
-        ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            logger.info(mapper.writeValueAsString(userBean));
-//            mapper.writeValue(Paths.get("userJson.json").toFile(), userBean);
-            logger.info("Json file created");
-        } catch (IOException e) {
-            logger.error("Json file hasn't found ");
-            throw new RuntimeException(e);
+    private static void createFile(UserBean userBean) throws WrongFormatFile {
+        if (System.getProperty(FILE_FORMAT) == null) {
+            throw new WrongFormatFile("Wrong format of file: " + System.getProperty(FILE_FORMAT));
         }
-    }
 
-    private static void createXmlFile(UserBean userBean) {
-        XmlMapper xmlMapper = new XmlMapper();
+        ObjectMapper mapper;
 
-        try {
-            logger.info(xmlMapper.writeValueAsString(userBean));
-//            xmlMapper.writeValue(Paths.get("userXml.xml").toFile(), userBean);
-            logger.info("Xml file created");
-        } catch (IOException e) {
-            logger.error("Xml file hasn't found ");
-            throw new RuntimeException(e);
+        if (System.getProperty(FILE_FORMAT).equalsIgnoreCase("json")) {
+            mapper = new ObjectMapper();
+
+            try {
+                logger.info(mapper.writeValueAsString(userBean));
+                logger.info("Json file created");
+            } catch (IOException e) {
+                logger.error("Json file hasn't found ");
+                throw new RuntimeException(e);
+            }
+        } else if (System.getProperty(FILE_FORMAT).equalsIgnoreCase("xml")) {
+            mapper = new XmlMapper();
+
+            try {
+                logger.info(mapper.writeValueAsString(userBean));
+                logger.info("Xml file created");
+            } catch (IOException e) {
+                logger.error("Xml file hasn't found ");
+                throw new RuntimeException(e);
+            }
+        } else {
+            logger.error("Wrong format of file");
+            throw new WrongFormatFile("Wrong format of file: " + System.getProperty(FILE_FORMAT));
         }
     }
 }

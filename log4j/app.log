@@ -1,11 +1,15 @@
-2023-01-29 19:16:13 INFO  Xml file created
-2023-01-29 19:19:00 INFO  Getting properties
-2023-01-29 19:19:00 INFO  User message created
-2023-01-29 19:19:00 INFO  Getting settings properties
-2023-01-29 19:19:01 INFO  <UserBean><message>Привіт Glib!</message></UserBean>
-2023-01-29 19:19:01 INFO  Xml file created
-2023-01-29 19:21:33 INFO  Getting properties
-2023-01-29 19:21:33 INFO  User message created
-2023-01-29 19:21:33 INFO  Getting settings properties
-2023-01-29 19:21:35 INFO  <UserBean><message>Привіт Glib!</message></UserBean>
-2023-01-29 19:21:35 INFO  Xml file created
+2023-01-29 20:34:11 INFO  Getting properties
+2023-01-29 20:34:11 INFO  User message created
+2023-01-29 20:34:11 INFO  {"message":"Привіт Glib!"}
+2023-01-29 20:34:11 INFO  Json file created
+2023-01-29 20:34:26 INFO  Getting properties
+2023-01-29 20:34:26 INFO  User message created
+2023-01-29 20:34:26 ERROR Wrong format of file
+2023-01-29 20:34:40 INFO  Getting properties
+2023-01-29 20:34:40 INFO  User message created
+2023-01-29 20:34:40 INFO  {"message":"Привіт Glib!"}
+2023-01-29 20:34:40 INFO  Json file created
+2023-01-29 20:34:49 INFO  Getting properties
+2023-01-29 20:34:49 INFO  User message created
+2023-01-29 20:34:50 INFO  <UserBean><message>Привіт Glib!</message></UserBean>
+2023-01-29 20:34:50 INFO  Xml file created
