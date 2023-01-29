@@ -54,7 +54,7 @@ public class App {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            System.out.println(mapper.writeValueAsString(userBean));
+            logger.info(mapper.writeValueAsString(userBean));
 //            mapper.writeValue(Paths.get("userJson.json").toFile(), userBean);
             logger.info("Json file created");
         } catch (IOException e) {
@@ -67,7 +67,7 @@ public class App {
         XmlMapper xmlMapper = new XmlMapper();
 
         try {
-            System.out.println(xmlMapper.writeValueAsString(userBean));
+            logger.info(xmlMapper.writeValueAsString(userBean));
 //            xmlMapper.writeValue(Paths.get("userXml.xml").toFile(), userBean);
             logger.info("Xml file created");
         } catch (IOException e) {
